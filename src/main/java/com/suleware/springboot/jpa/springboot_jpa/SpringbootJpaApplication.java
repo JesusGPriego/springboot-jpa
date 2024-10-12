@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.suleware.springboot.jpa.springboot_jpa.entities.Person;
 import com.suleware.springboot.jpa.springboot_jpa.repositories.PersonRepository;
@@ -24,14 +25,23 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		findOne();
+		create();
 	}
 
-	private void findOne() {
+	@Transactional
+	public void create() {
+		Person p = new Person(null, "Lalo", "Thor", "Python");
+		Person newPerson = personRepository.save(p);
+		System.out.println(newPerson);
+	}
+
+	@Transactional(readOnly = true)
+	public void findOne() {
 		personRepository.findOneByname("Jesús").ifPresent(System.out::println);
 	}
-
-	private void list() {
+	
+	@Transactional(readOnly = true)
+	public void list() {
 		List<Person> persons = personRepository.findByProgrammingLanguageAndName("Java", "Jesús");
 
 		persons.stream().forEach(System.out::println);
