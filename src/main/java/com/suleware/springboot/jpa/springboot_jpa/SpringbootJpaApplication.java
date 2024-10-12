@@ -1,6 +1,8 @@
 package com.suleware.springboot.jpa.springboot_jpa;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,7 +27,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		create();
+		update();
 	}
 
 	@Transactional
@@ -35,11 +37,31 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		System.out.println(newPerson);
 	}
 
+	@Transactional
+	public void update() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Insert person ID");
+		Long id = scanner.nextLong();
+
+		Optional<Person> optionalPerson = personRepository.findById(id);
+
+		optionalPerson.ifPresent(person -> {
+			System.out.println(person);
+			System.out.println(String.format("Insert new programming lenguage for perosn with ID %s", person.getId()));
+			String programmingLanguage = scanner.next();
+
+			person.setProgrammingLanguage(programmingLanguage);
+			Person personDB = personRepository.save(person);
+			System.out.println(personDB);
+		});
+		scanner.close();
+	}
+
 	@Transactional(readOnly = true)
 	public void findOne() {
 		personRepository.findOneByname("Jesús").ifPresent(System.out::println);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public void list() {
 		List<Person> persons = personRepository.findByProgrammingLanguageAndName("Java", "Jesús");
