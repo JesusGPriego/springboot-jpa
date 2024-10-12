@@ -19,7 +19,7 @@ This project uses mysql as Database. there is no need to install it since there 
 
 ## How to use
 
- 1. Create env.properties from env.properties.template and set values for the keys.
+ 1. Create env.properties from env.template.properties and set values for the keys.
  2. Create .env file from env.template and set values to the keys.
 
 Then, located in project base folder, execute
