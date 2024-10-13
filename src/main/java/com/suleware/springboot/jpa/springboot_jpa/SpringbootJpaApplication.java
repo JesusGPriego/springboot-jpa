@@ -27,7 +27,12 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		programmmingLanguagesDistinct();
+		concatUpperLowerLikeQuery();
+	}
+
+	@Transactional(readOnly = true)
+	public void concatUpperLowerLikeQuery() {
+		personRepository.findFullName().forEach(System.out::println);
 	}
 
 	@Transactional(readOnly = true)

@@ -11,6 +11,9 @@ import com.suleware.springboot.jpa.springboot_jpa.entities.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    @Query("select concat(upper(p.name),' ', lower(p.lastname)) from Person p")
+    public List<String> findFullName();
+
     @Query("select distinct(p.programmingLanguage) from Person p")
     List<String> programmmingLanguagesDistinct();
 
