@@ -10,6 +10,9 @@ import com.suleware.springboot.jpa.springboot_jpa.entities.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    @Query("select p.name from Person p where p.id = :id")
+    String getPersonNameById(Long id);
+
     @Query("select p from Person as p where p.id = :id")
     Optional<Person> findOne(Long id);
 

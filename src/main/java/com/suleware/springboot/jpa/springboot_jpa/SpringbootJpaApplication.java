@@ -27,7 +27,16 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		update();
+		customQueries();
+	}
+
+	@Transactional(readOnly = true)
+	public void customQueries() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Insert person ID");
+		Long id = scanner.nextLong();
+		String pName = personRepository.getPersonNameById(id);
+		System.out.println(String.format("Person with id %s is %s", id, pName));
 	}
 
 	@Transactional
@@ -55,6 +64,24 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 			System.out.println(personDB);
 		});
 		scanner.close();
+	}
+
+	@Transactional
+	public void delete() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Insert person ID");
+
+		Long id = scanner.nextLong();
+
+		Optional<Person> oPerson = personRepository.findById(id);
+
+		oPerson.ifPresentOrElse(person -> {
+			personRepository.delete(person);
+			System.out.println(String.format("Person %s deleted", person));
+		}, () -> System.out.println(String.format("Error: Person with id %s not found.", id)));
+
+		scanner.close();
+
 	}
 
 	@Transactional(readOnly = true)
