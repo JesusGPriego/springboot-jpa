@@ -27,7 +27,12 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		classInstQuery();
+		programmmingLanguagesDistinct();
+	}
+
+	@Transactional(readOnly = true)
+	public void programmmingLanguagesDistinct() {
+		personRepository.programmmingLanguagesDistinct().forEach(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
