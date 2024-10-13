@@ -4,9 +4,7 @@ This is a simple project whose main topic is JPA.
 
 JPA allow us to access ddbb via ORM, which let us decide how to select data, being able to choose sql, jpql or OOP thanks to, for example, hibernate.
 
-This is useful for monitoring, logging, authentication and permission, for example.
-
-As usual, project architecture follows MVC pattern.
+This is a simple console application as a showcase of the features that Spring JPA bring us.
 
 ## FYI
 
@@ -39,9 +37,3 @@ Build:
 cd /target
 java -jar xxx.jar
 ```
-
-## OpenAPI
-
-to check swagger and asuming the application is running locally, open a web browser and paste
-
-`http://localhost:8080/swagger-ui/index.html`
