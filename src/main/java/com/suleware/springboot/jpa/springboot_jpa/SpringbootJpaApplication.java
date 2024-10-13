@@ -27,7 +27,13 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		customQueries();
+		classInstQuery();
+	}
+
+	@Transactional(readOnly = true)
+	public void classInstQuery() {
+		personRepository.findAllClassPerson().forEach(System.out::println);
+		personRepository.findAllClassPersonDTO().forEach(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
