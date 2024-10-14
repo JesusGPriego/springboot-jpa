@@ -27,7 +27,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		concatUpperLowerLikeQuery();
+		list();
 	}
 
 	@Transactional(readOnly = true)
@@ -57,7 +57,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Transactional
 	public void create() {
-		Person p = new Person(null, "Lalo", "Thor", "Python");
+		Person p = new Person( "Sule", "Ware", "Typescript");
 		Person newPerson = personRepository.save(p);
 		System.out.println(newPerson);
 	}
@@ -107,7 +107,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Transactional(readOnly = true)
 	public void list() {
-		List<Person> persons = personRepository.findByProgrammingLanguageAndName("Java", "Jesús");
+		List<Person> persons = (List<Person>) personRepository.findAll();
 
 		persons.stream().forEach(System.out::println);
 	}
